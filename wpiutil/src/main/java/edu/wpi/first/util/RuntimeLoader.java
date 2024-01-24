@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.DigestInputStream;
@@ -92,7 +91,7 @@ public final class RuntimeLoader<T> {
         if (hashIs == null) {
           throw new IOException(getLoadErrorMessage(ule));
         }
-        try (Scanner scanner = new Scanner(hashIs, StandardCharsets.UTF_8)) {
+        try (Scanner scanner = new Scanner(hashIs, "UTF-8")) {
           String hash = scanner.nextLine();
           File jniLibrary = new File(m_extractionRoot, resName + "." + hash);
           try {

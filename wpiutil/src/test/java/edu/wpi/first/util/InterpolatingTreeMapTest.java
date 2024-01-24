@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings("removal")
+@SuppressWarnings({"deprecation", "removal"})
 class InterpolatingTreeMapTest {
   @Test
   void testInterpolationDouble() {

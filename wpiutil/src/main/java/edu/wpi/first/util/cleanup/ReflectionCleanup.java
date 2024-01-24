@@ -19,7 +19,7 @@ public interface ReflectionCleanup extends AutoCloseable {
    *
    * @param cls the class level to clean up
    */
-  @SuppressWarnings("PMD.AvoidCatchingGenericException")
+  @SuppressWarnings({"PMD.AvoidCatchingGenericException", "PMD.AvoidAccessibilityAlteration"})
   default void reflectionCleanup(Class<? extends ReflectionCleanup> cls) {
     if (!cls.isAssignableFrom(getClass())) {
       System.out.println("Passed in class is not assignable from \"this\"");
@@ -34,16 +34,15 @@ public interface ReflectionCleanup extends AutoCloseable {
       if (!AutoCloseable.class.isAssignableFrom(field.getType())) {
         continue;
       }
-      if (field.trySetAccessible()) {
-        try {
-          AutoCloseable c = (AutoCloseable) field.get(this);
-          if (c != null) {
-            c.close();
-          }
-        } catch (Exception e) {
-          // Ignore any exceptions
-          e.printStackTrace();
+      try {
+        field.setAccessible(true);
+        AutoCloseable c = (AutoCloseable) field.get(this);
+        if (c != null) {
+          c.close();
         }
+      } catch (Exception e) {
+        // Ignore any exceptions
+        e.printStackTrace();
       }
     }
   }

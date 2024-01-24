@@ -68,7 +68,8 @@ public final class DynamicStruct {
    * @return data buffer
    */
   public ByteBuffer getBuffer() {
-    return m_data.duplicate().position(0);
+    m_data.duplicate().position(0);
+    return m_data;
   }
 
   /**
@@ -83,7 +84,8 @@ public final class DynamicStruct {
     if (data.length < m_desc.getSize()) {
       throw new BufferUnderflowException();
     }
-    m_data.position(0).put(data);
+    m_data.position(0);
+    m_data.put(data);
   }
 
   /**
@@ -98,8 +100,10 @@ public final class DynamicStruct {
     if (data.remaining() < m_desc.getSize()) {
       throw new BufferUnderflowException();
     }
+    m_data.position(0);
     int oldLimit = data.limit();
-    m_data.position(0).put(data.limit(m_desc.getSize()));
+    data.limit(m_desc.getSize());
+    m_data.put(data);
     data.limit(oldLimit);
   }
 
@@ -389,7 +393,8 @@ public final class DynamicStruct {
       throw new IllegalStateException("struct descriptor is not valid");
     }
     byte[] bytes = new byte[field.m_arraySize];
-    m_data.position(field.m_offset).get(bytes, 0, field.m_arraySize);
+    m_data.position(field.m_offset);
+    m_data.get(bytes, 0, field.m_arraySize);
     return new String(bytes, StandardCharsets.UTF_8);
   }
 
@@ -414,7 +419,9 @@ public final class DynamicStruct {
     }
     ByteBuffer bb = StandardCharsets.UTF_8.encode(value);
     int len = Math.min(bb.remaining(), field.m_arraySize);
-    m_data.position(field.m_offset).put(bb.limit(len));
+    m_data.position(field.m_offset);
+    bb.limit(len);
+    m_data.put(bb);
     for (int i = len; i < field.m_arraySize; i++) {
       m_data.put((byte) 0);
     }
@@ -446,7 +453,8 @@ public final class DynamicStruct {
           "arrIndex (" + arrIndex + ") is larger than array size (" + field.m_arraySize + ")");
     }
     StructDescriptor struct = field.getStruct();
-    return wrap(struct, m_data.position(field.m_offset + arrIndex * struct.m_size));
+    m_data.position(field.m_offset + arrIndex * struct.m_size);
+    return wrap(struct, m_data);
   }
 
   /**
@@ -495,9 +503,10 @@ public final class DynamicStruct {
       throw new ArrayIndexOutOfBoundsException(
           "arrIndex (" + arrIndex + ") is larger than array size (" + field.m_arraySize + ")");
     }
-    m_data
-        .position(field.m_offset + arrIndex * struct.m_size)
-        .put(value.m_data.position(0).limit(value.getDescriptor().getSize()));
+    m_data.position(field.m_offset + arrIndex * struct.m_size);
+    value.m_data.position(0);
+    value.m_data.limit(value.getDescriptor().getSize());
+    m_data.put(value.m_data);
   }
 
   /**

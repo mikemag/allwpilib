@@ -107,7 +107,14 @@ public interface Protobuf<T, MessageType extends ProtoMessage<?>> {
     forEachDescriptorImpl(getDescriptor().getFile(), exists, fn);
   }
 
-  private static void forEachDescriptorImpl(
+  /**
+   * Private impl to loop over all protobuf descriptors including nested/referenced descriptors.
+   *
+   * @param desc file descriptor
+   * @param exists function that returns false if fn should be called for the given type string
+   * @param fn function to call for each descriptor
+   */
+  static void forEachDescriptorImpl(
       FileDescriptor desc, Predicate<String> exists, BiConsumer<String, byte[]> fn) {
     String name = "proto:" + desc.getFullName();
     if (exists.test(name)) {
