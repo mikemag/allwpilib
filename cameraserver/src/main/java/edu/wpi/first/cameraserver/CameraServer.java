@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -458,9 +457,13 @@ public final class CameraServer {
       int sink = i.getHandle();
 
       // Get the source's subtable (if none exists, we're done)
-      int source =
-          Objects.requireNonNullElseGet(
-              m_fixedSources.get(sink), () -> CameraServerJNI.getSinkSource(sink));
+      int source;
+      Integer s = m_fixedSources.get(sink);
+      if (s == null) {
+        source = CameraServerJNI.getSinkSource(sink);
+      } else {
+        source = s;
+      }
 
       if (source == 0) {
         continue;
