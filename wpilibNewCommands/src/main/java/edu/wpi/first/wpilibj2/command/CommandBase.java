@@ -14,6 +14,6 @@ import edu.wpi.first.util.sendable.Sendable;
  * @deprecated All functionality provided by {@link CommandBase} has been merged into {@link
  *     Command}. Use {@link Command} instead.
  */
-@Deprecated(since = "2024", forRemoval = true)
+@Deprecated
 @SuppressWarnings("PMD.AbstractClassWithoutAnyMethod")
 public abstract class CommandBase extends Command {}

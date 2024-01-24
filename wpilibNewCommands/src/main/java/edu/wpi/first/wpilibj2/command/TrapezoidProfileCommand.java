@@ -60,7 +60,7 @@ public class TrapezoidProfileCommand extends Command {
    * @deprecated The new constructor allows you to pass in a supplier for desired and current state.
    *     This allows you to change goals at runtime.
    */
-  @Deprecated(since = "2024", forRemoval = true)
+  @Deprecated
   @SuppressWarnings("this-escape")
   public TrapezoidProfileCommand(
       TrapezoidProfile profile, Consumer<State> output, Subsystem... requirements) {
@@ -78,7 +78,7 @@ public class TrapezoidProfileCommand extends Command {
   }
 
   @Override
-  @SuppressWarnings("removal")
+  @SuppressWarnings({"removal", "deprecation"})
   public void execute() {
     if (m_newAPI) {
       m_output.accept(m_profile.calculate(m_timer.get(), m_currentState.get(), m_goal.get()));

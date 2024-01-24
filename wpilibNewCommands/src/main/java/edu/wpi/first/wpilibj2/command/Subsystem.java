@@ -4,7 +4,8 @@
 
 package edu.wpi.first.wpilibj2.command;
 
-import java.util.Set;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.function.Supplier;
 
 /**
@@ -155,6 +156,6 @@ public interface Subsystem {
    * @see DeferredCommand
    */
   default Command defer(Supplier<Command> supplier) {
-    return Commands.defer(supplier, Set.of(this));
+    return Commands.defer(supplier, new HashSet<>(Arrays.asList(this)));
   }
 }

@@ -10,7 +10,6 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 import java.util.HashMap;
-import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 class SelectCommandTest extends MultiCompositionTestBase<SelectCommand<Integer>> {
@@ -25,13 +24,11 @@ class SelectCommandTest extends MultiCompositionTestBase<SelectCommand<Integer>>
       MockCommandHolder command3Holder = new MockCommandHolder(true);
       Command command3 = command3Holder.getMock();
 
-      SelectCommand<String> selectCommand =
-          new SelectCommand<>(
-              Map.ofEntries(
-                  Map.entry("one", command1),
-                  Map.entry("two", command2),
-                  Map.entry("three", command3)),
-              () -> "one");
+      var cmds1 = new HashMap<String, Command>();
+      cmds1.put("one", command1);
+      cmds1.put("two", command2);
+      cmds1.put("three", command3);
+      SelectCommand<String> selectCommand = new SelectCommand<>(cmds1, () -> "one");
 
       scheduler.schedule(selectCommand);
       scheduler.run();
@@ -61,13 +58,11 @@ class SelectCommandTest extends MultiCompositionTestBase<SelectCommand<Integer>>
       MockCommandHolder command3Holder = new MockCommandHolder(true);
       Command command3 = command3Holder.getMock();
 
-      SelectCommand<String> selectCommand =
-          new SelectCommand<>(
-              Map.ofEntries(
-                  Map.entry("one", command1),
-                  Map.entry("two", command2),
-                  Map.entry("three", command3)),
-              () -> "four");
+      var cmds1 = new HashMap<String, Command>();
+      cmds1.put("one", command1);
+      cmds1.put("two", command2);
+      cmds1.put("three", command3);
+      SelectCommand<String> selectCommand = new SelectCommand<>(cmds1, () -> "four");
 
       assertDoesNotThrow(() -> scheduler.schedule(selectCommand));
     }
@@ -88,13 +83,11 @@ class SelectCommandTest extends MultiCompositionTestBase<SelectCommand<Integer>>
       MockCommandHolder command3Holder = new MockCommandHolder(true, system3, system4);
       Command command3 = command3Holder.getMock();
 
-      SelectCommand<String> selectCommand =
-          new SelectCommand<>(
-              Map.ofEntries(
-                  Map.entry("one", command1),
-                  Map.entry("two", command2),
-                  Map.entry("three", command3)),
-              () -> "one");
+      var cmds1 = new HashMap<String, Command>();
+      cmds1.put("one", command1);
+      cmds1.put("two", command2);
+      cmds1.put("three", command3);
+      SelectCommand<String> selectCommand = new SelectCommand<>(cmds1, () -> "one");
 
       scheduler.schedule(selectCommand);
       scheduler.schedule(new InstantCommand(() -> {}, system3));

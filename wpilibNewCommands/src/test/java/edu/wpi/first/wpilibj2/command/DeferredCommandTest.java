@@ -14,7 +14,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.Set;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.function.Supplier;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -25,7 +26,7 @@ class DeferredCommandTest extends CommandTestBase {
   @ValueSource(booleans = {true, false})
   void deferredFunctionsTest(boolean interrupted) {
     MockCommandHolder innerCommand = new MockCommandHolder(false);
-    DeferredCommand command = new DeferredCommand(innerCommand::getMock, Set.of());
+    DeferredCommand command = new DeferredCommand(innerCommand::getMock, new HashSet<>());
 
     command.initialize();
     verify(innerCommand.getMock()).initialize();
@@ -51,7 +52,7 @@ class DeferredCommandTest extends CommandTestBase {
       Supplier<Command> supplier = (Supplier<Command>) mock(Supplier.class);
       when(supplier.get()).thenReturn(Commands.none(), Commands.none());
 
-      DeferredCommand command = new DeferredCommand(supplier, Set.of());
+      DeferredCommand command = new DeferredCommand(supplier, new HashSet<>());
       verify(supplier, never()).get();
 
       scheduler.schedule(command);
@@ -66,14 +67,15 @@ class DeferredCommandTest extends CommandTestBase {
   @Test
   void deferredRequirementsTest() {
     Subsystem subsystem = new Subsystem() {};
-    DeferredCommand command = new DeferredCommand(Commands::none, Set.of(subsystem));
+    DeferredCommand command =
+        new DeferredCommand(Commands::none, new HashSet<>(Arrays.asList(subsystem)));
 
     assertTrue(command.getRequirements().contains(subsystem));
   }
 
   @Test
   void deferredNullCommandTest() {
-    DeferredCommand command = new DeferredCommand(() -> null, Set.of());
+    DeferredCommand command = new DeferredCommand(() -> null, new HashSet<>());
     assertDoesNotThrow(
         () -> {
           command.initialize();

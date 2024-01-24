@@ -4,6 +4,8 @@
 
 package edu.wpi.first.wpilibj2.command;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -22,7 +24,7 @@ public class ScheduleCommand extends Command {
    * @param toSchedule the commands to schedule
    */
   public ScheduleCommand(Command... toSchedule) {
-    m_toSchedule = Set.of(toSchedule);
+    m_toSchedule = new HashSet<>(Arrays.asList(toSchedule));
   }
 
   @Override

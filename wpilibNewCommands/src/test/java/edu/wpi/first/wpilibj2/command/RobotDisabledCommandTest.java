@@ -8,7 +8,7 @@ import static edu.wpi.first.wpilibj2.command.Commands.parallel;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Map;
+import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 
 class RobotDisabledCommandTest extends CommandTestBase {
@@ -136,13 +136,20 @@ class RobotDisabledCommandTest extends CommandTestBase {
     Command command1 = command1Holder.getMock();
     MockCommandHolder command2Holder = new MockCommandHolder(true);
     Command command2 = command2Holder.getMock();
+
+    var cmds1 = new HashMap<Integer, Command>();
+    cmds1.put(1, command1);
+    cmds1.put(2, command2);
+    Command runWhenDisabled = new SelectCommand<>(cmds1, () -> 1);
+
     MockCommandHolder command3Holder = new MockCommandHolder(true);
     Command command3 = command3Holder.getMock();
     MockCommandHolder command4Holder = new MockCommandHolder(false);
     Command command4 = command4Holder.getMock();
-
-    Command runWhenDisabled = new SelectCommand<>(Map.of(1, command1, 2, command2), () -> 1);
-    Command dontRunWhenDisabled = new SelectCommand<>(Map.of(1, command3, 2, command4), () -> 1);
+    var cmds2 = new HashMap<Integer, Command>();
+    cmds2.put(1, command3);
+    cmds2.put(2, command4);
+    Command dontRunWhenDisabled = new SelectCommand<>(cmds2, () -> 1);
 
     try (CommandScheduler scheduler = new CommandScheduler()) {
       scheduler.schedule(runWhenDisabled, dontRunWhenDisabled);

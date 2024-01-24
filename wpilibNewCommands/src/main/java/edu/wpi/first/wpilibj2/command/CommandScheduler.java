@@ -21,8 +21,10 @@ import edu.wpi.first.wpilibj.event.EventLoop;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -358,7 +360,7 @@ public final class CommandScheduler implements Sendable, AutoCloseable {
    * @param subsystems the subsystem to un-register
    */
   public void unregisterSubsystem(Subsystem... subsystems) {
-    m_subsystems.keySet().removeAll(Set.of(subsystems));
+    Arrays.asList(subsystems).forEach(m_subsystems.keySet()::remove);
   }
 
   /**
@@ -502,7 +504,7 @@ public final class CommandScheduler implements Sendable, AutoCloseable {
    * @return whether the command is currently scheduled
    */
   public boolean isScheduled(Command... commands) {
-    return m_scheduledCommands.containsAll(Set.of(commands));
+    return m_scheduledCommands.containsAll(Arrays.asList(commands));
   }
 
   /**
@@ -587,7 +589,10 @@ public final class CommandScheduler implements Sendable, AutoCloseable {
   public void registerComposedCommands(Command... commands) {
     Set<Command> commandSet;
     try {
-      commandSet = Set.of(commands);
+      commandSet = new HashSet<>(Arrays.asList(commands));
+      if (commandSet.size() < commands.length) {
+        throw new IllegalArgumentException();
+      }
     } catch (IllegalArgumentException e) {
       throw new IllegalArgumentException(
           "Cannot compose a command twice in the same composition! (Original exception: "
@@ -650,7 +655,7 @@ public final class CommandScheduler implements Sendable, AutoCloseable {
    * @throws IllegalArgumentException if the given commands have already been composed.
    */
   public void requireNotComposed(Collection<Command> commands) {
-    requireNotComposed(commands.toArray(Command[]::new));
+    requireNotComposed(commands.stream().toArray(Command[]::new));
   }
 
   /**
