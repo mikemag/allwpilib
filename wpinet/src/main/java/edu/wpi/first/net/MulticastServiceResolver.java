@@ -4,17 +4,9 @@
 
 package edu.wpi.first.net;
 
-import edu.wpi.first.util.WPICleaner;
-import java.lang.ref.Cleaner.Cleanable;
-
 /** Class to resolve a service over mDNS. */
 public class MulticastServiceResolver implements AutoCloseable {
-  private final int m_handle;
-  private final Cleanable m_cleanable;
-
-  private static Runnable cleanupAction(int handle) {
-    return () -> WPINetJNI.freeMulticastServiceResolver(handle);
-  }
+  private int m_handle;
 
   /**
    * Creates a MulticastServiceResolver.
@@ -24,12 +16,20 @@ public class MulticastServiceResolver implements AutoCloseable {
   @SuppressWarnings("this-escape")
   public MulticastServiceResolver(String serviceType) {
     m_handle = WPINetJNI.createMulticastServiceResolver(serviceType);
-    m_cleanable = WPICleaner.register(this, cleanupAction(m_handle));
+  }
+
+  @SuppressWarnings("NoFinalizer")
+  @Override
+  protected void finalize() throws Throwable {
+    close();
   }
 
   @Override
   public void close() {
-    m_cleanable.clean();
+    if (m_handle >= 0) {
+      WPINetJNI.freeMulticastServiceResolver(m_handle);
+      m_handle = -1;
+    }
   }
 
   public void start() {

@@ -4,18 +4,11 @@
 
 package edu.wpi.first.net;
 
-import edu.wpi.first.util.WPICleaner;
-import java.lang.ref.Cleaner.Cleanable;
 import java.util.Map;
 
 /** Class to announce over mDNS that a service is available. */
 public class MulticastServiceAnnouncer implements AutoCloseable {
-  private final int m_handle;
-  private final Cleanable m_cleanable;
-
-  private static Runnable cleanupAction(int handle) {
-    return () -> WPINetJNI.freeMulticastServiceAnnouncer(handle);
-  }
+  private int m_handle;
 
   /**
    * Creates a MulticastServiceAnnouncer.
@@ -25,14 +18,12 @@ public class MulticastServiceAnnouncer implements AutoCloseable {
    * @param port port
    * @param txt txt
    */
-  @SuppressWarnings("this-escape")
   public MulticastServiceAnnouncer(
       String serviceName, String serviceType, int port, Map<String, String> txt) {
-    String[] keys = txt.keySet().toArray(String[]::new);
-    String[] values = txt.values().toArray(String[]::new);
+    String[] keys = txt.keySet().stream().toArray(String[]::new);
+    String[] values = txt.values().stream().toArray(String[]::new);
     m_handle =
         WPINetJNI.createMulticastServiceAnnouncer(serviceName, serviceType, port, keys, values);
-    m_cleanable = WPICleaner.register(this, cleanupAction(m_handle));
   }
 
   /**
@@ -42,16 +33,23 @@ public class MulticastServiceAnnouncer implements AutoCloseable {
    * @param serviceType service type
    * @param port port
    */
-  @SuppressWarnings("this-escape")
   public MulticastServiceAnnouncer(String serviceName, String serviceType, int port) {
     m_handle =
         WPINetJNI.createMulticastServiceAnnouncer(serviceName, serviceType, port, null, null);
-    m_cleanable = WPICleaner.register(this, cleanupAction(m_handle));
+  }
+
+  @SuppressWarnings("NoFinalizer")
+  @Override
+  protected void finalize() throws Throwable {
+    close();
   }
 
   @Override
   public void close() {
-    m_cleanable.clean();
+    if (m_handle >= 0) {
+      WPINetJNI.freeMulticastServiceAnnouncer(m_handle);
+      m_handle = -1;
+    }
   }
 
   public void start() {
