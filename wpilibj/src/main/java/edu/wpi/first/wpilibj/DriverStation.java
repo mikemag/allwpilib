@@ -22,6 +22,7 @@ import edu.wpi.first.util.datalog.DataLog;
 import edu.wpi.first.util.datalog.FloatArrayLogEntry;
 import edu.wpi.first.util.datalog.IntegerArrayLogEntry;
 import java.nio.ByteBuffer;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.OptionalInt;
@@ -1090,25 +1091,33 @@ public final class DriverStation {
     }
   }
 
+  @SuppressWarnings("PMD.DoubleBraceInitialization")
   private static Map<AllianceStationID, Optional<Alliance>> m_allianceMap =
-      Map.of(
-          AllianceStationID.Unknown, Optional.empty(),
-          AllianceStationID.Red1, Optional.of(Alliance.Red),
-          AllianceStationID.Red2, Optional.of(Alliance.Red),
-          AllianceStationID.Red3, Optional.of(Alliance.Red),
-          AllianceStationID.Blue1, Optional.of(Alliance.Blue),
-          AllianceStationID.Blue2, Optional.of(Alliance.Blue),
-          AllianceStationID.Blue3, Optional.of(Alliance.Blue));
+      new HashMap<>() {
+        {
+          put(AllianceStationID.Unknown, Optional.empty());
+          put(AllianceStationID.Red1, Optional.of(Alliance.Red));
+          put(AllianceStationID.Red2, Optional.of(Alliance.Red));
+          put(AllianceStationID.Red3, Optional.of(Alliance.Red));
+          put(AllianceStationID.Blue1, Optional.of(Alliance.Blue));
+          put(AllianceStationID.Blue2, Optional.of(Alliance.Blue));
+          put(AllianceStationID.Blue3, Optional.of(Alliance.Blue));
+        }
+      };
 
+  @SuppressWarnings("PMD.DoubleBraceInitialization")
   private static Map<AllianceStationID, OptionalInt> m_stationMap =
-      Map.of(
-          AllianceStationID.Unknown, OptionalInt.empty(),
-          AllianceStationID.Red1, OptionalInt.of(1),
-          AllianceStationID.Red2, OptionalInt.of(2),
-          AllianceStationID.Red3, OptionalInt.of(3),
-          AllianceStationID.Blue1, OptionalInt.of(1),
-          AllianceStationID.Blue2, OptionalInt.of(2),
-          AllianceStationID.Blue3, OptionalInt.of(3));
+      new HashMap<>() {
+        {
+          put(AllianceStationID.Unknown, OptionalInt.empty());
+          put(AllianceStationID.Red1, OptionalInt.of(1));
+          put(AllianceStationID.Red2, OptionalInt.of(2));
+          put(AllianceStationID.Red3, OptionalInt.of(3));
+          put(AllianceStationID.Blue1, OptionalInt.of(1));
+          put(AllianceStationID.Blue2, OptionalInt.of(2));
+          put(AllianceStationID.Blue3, OptionalInt.of(3));
+        }
+      };
 
   /**
    * Get the current alliance from the FMS.

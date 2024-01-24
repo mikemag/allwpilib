@@ -9,7 +9,7 @@ package edu.wpi.first.wpilibj.interfaces;
  *
  * @deprecated This interface is being removed with no replacement.
  */
-@Deprecated(since = "2024", forRemoval = true)
+@Deprecated
 public interface Accelerometer {
   enum Range {
     k2G,

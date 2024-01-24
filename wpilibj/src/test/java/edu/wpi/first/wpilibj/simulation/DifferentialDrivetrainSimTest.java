@@ -25,7 +25,7 @@ import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.math.trajectory.constraint.DifferentialDriveKinematicsConstraint;
 import edu.wpi.first.math.util.Units;
-import java.util.List;
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 class DifferentialDrivetrainSimTest {
@@ -56,7 +56,7 @@ class DifferentialDrivetrainSimTest {
     var traj =
         TrajectoryGenerator.generateTrajectory(
             new Pose2d(),
-            List.of(),
+            Arrays.asList(),
             new Pose2d(2, 2, new Rotation2d()),
             new TrajectoryConfig(1, 1)
                 .addConstraint(new DifferentialDriveKinematicsConstraint(kinematics, 1)));
