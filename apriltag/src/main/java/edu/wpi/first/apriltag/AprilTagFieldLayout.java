@@ -16,6 +16,7 @@ import edu.wpi.first.math.geometry.Translation3d;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,7 +64,7 @@ public class AprilTagFieldLayout {
    * @throws IOException If reading from the file fails.
    */
   public AprilTagFieldLayout(String path) throws IOException {
-    this(Path.of(path));
+    this(FileSystems.getDefault().getPath(path));
   }
 
   /**
@@ -205,7 +206,7 @@ public class AprilTagFieldLayout {
    * @throws IOException If writing to the file fails.
    */
   public void serialize(String path) throws IOException {
-    serialize(Path.of(path));
+    serialize(FileSystems.getDefault().getPath(path));
   }
 
   /**
