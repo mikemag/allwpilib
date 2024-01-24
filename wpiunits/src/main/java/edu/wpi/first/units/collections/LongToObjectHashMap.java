@@ -7,7 +7,7 @@ package edu.wpi.first.units.collections;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
+import java.util.Collections;
 
 /**
  * A variant on {@code java.util.HashMap<K, V>} that uses primitive long ints for map keys instead
@@ -219,7 +219,7 @@ public class LongToObjectHashMap<V> {
         values.add(m_values[bucket]);
       }
     }
-    return List.copyOf(values); // return a readonly copy
+    return Collections.unmodifiableCollection(values); // return a readonly copy
   }
 
   @FunctionalInterface
