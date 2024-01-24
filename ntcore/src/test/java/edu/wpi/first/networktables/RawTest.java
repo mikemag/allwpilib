@@ -55,13 +55,20 @@ class RawTest {
     GenericEntry entry = m_inst.getTopic("test").getGenericEntry("raw");
     entry.setRaw(ByteBuffer.wrap(new byte[] {5}), 10);
     assertArrayEquals(entry.getRaw(new byte[] {}), new byte[] {5});
-    entry.setRaw(ByteBuffer.wrap(new byte[] {5, 6, 7}).position(1), 15);
+    var bb = ByteBuffer.wrap(new byte[] {5, 6, 7});
+    bb.position(1);
+    entry.setRaw(bb, 15);
     assertArrayEquals(entry.getRaw(new byte[] {}), new byte[] {6, 7});
-    entry.setRaw(ByteBuffer.wrap(new byte[] {5, 6, 7}).position(1).limit(2), 16);
+    bb = ByteBuffer.wrap(new byte[] {5, 6, 7});
+    bb.position(1);
+    bb.limit(2);
+    entry.setRaw(bb, 16);
     assertArrayEquals(entry.getRaw(new byte[] {}), new byte[] {6});
     entry.setRaw(ByteBuffer.wrap(new byte[] {8, 9, 0}), 1, 2, 20);
     assertArrayEquals(entry.getRaw(new byte[] {}), new byte[] {9, 0});
-    entry.setRaw(ByteBuffer.wrap(new byte[] {1, 2, 3}).position(2), 0, 2, 25);
+    bb = ByteBuffer.wrap(new byte[] {1, 2, 3});
+    bb.position(2);
+    entry.setRaw(bb, 0, 2, 25);
     assertArrayEquals(entry.getRaw(new byte[] {}), new byte[] {1, 2});
     assertThrows(
         IndexOutOfBoundsException.class,
@@ -79,13 +86,20 @@ class RawTest {
     RawEntry entry = m_inst.getRawTopic("test").getEntry("raw", new byte[] {});
     entry.set(ByteBuffer.wrap(new byte[] {5}), 10);
     assertArrayEquals(entry.get(new byte[] {}), new byte[] {5});
-    entry.set(ByteBuffer.wrap(new byte[] {5, 6, 7}).position(1), 15);
+    var bb = ByteBuffer.wrap(new byte[] {5, 6, 7});
+    bb.position(1);
+    entry.set(bb, 15);
     assertArrayEquals(entry.get(new byte[] {}), new byte[] {6, 7});
-    entry.set(ByteBuffer.wrap(new byte[] {5, 6, 7}).position(1).limit(2), 16);
+    bb = ByteBuffer.wrap(new byte[] {5, 6, 7});
+    bb.position(1);
+    bb.limit(2);
+    entry.set(bb, 16);
     assertArrayEquals(entry.get(new byte[] {}), new byte[] {6});
     entry.set(ByteBuffer.wrap(new byte[] {8, 9, 0}), 1, 2, 20);
     assertArrayEquals(entry.get(new byte[] {}), new byte[] {9, 0});
-    entry.set(ByteBuffer.wrap(new byte[] {1, 2, 3}).position(2), 0, 2, 25);
+    bb = ByteBuffer.wrap(new byte[] {1, 2, 3});
+    bb.position(2);
+    entry.set(bb, 0, 2, 25);
     assertArrayEquals(entry.get(new byte[] {}), new byte[] {1, 2});
     assertThrows(
         IndexOutOfBoundsException.class,
@@ -103,9 +117,11 @@ class RawTest {
     GenericEntry entry = m_inst.getTopic("test").getGenericEntry("raw");
     ByteBuffer bb = ByteBuffer.allocateDirect(3);
     bb.put(new byte[] {5, 6, 7});
-    entry.setRaw(bb.position(1), 15);
+    bb.position(1);
+    entry.setRaw(bb, 15);
     assertArrayEquals(entry.getRaw(new byte[] {}), new byte[] {6, 7});
-    entry.setRaw(bb.limit(2), 16);
+    bb.limit(2);
+    entry.setRaw(bb, 16);
     assertArrayEquals(entry.getRaw(new byte[] {}), new byte[] {6});
     bb.clear();
     bb.put(new byte[] {8, 9, 0});
@@ -121,9 +137,11 @@ class RawTest {
     RawEntry entry = m_inst.getRawTopic("test").getEntry("raw", new byte[] {});
     ByteBuffer bb = ByteBuffer.allocateDirect(3);
     bb.put(new byte[] {5, 6, 7});
-    entry.set(bb.position(1), 15);
+    bb.position(1);
+    entry.set(bb, 15);
     assertArrayEquals(entry.get(new byte[] {}), new byte[] {6, 7});
-    entry.set(bb.limit(2), 16);
+    bb.limit(2);
+    entry.set(bb, 16);
     assertArrayEquals(entry.get(new byte[] {}), new byte[] {6});
     bb.clear();
     bb.put(new byte[] {8, 9, 0});

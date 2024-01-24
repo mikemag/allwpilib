@@ -20,7 +20,7 @@ public final class NetworkTableEntry implements Publisher, Subscriber {
    *
    * @deprecated Use isPersistent() instead.
    */
-  @Deprecated(since = "2022", forRemoval = true)
+  @Deprecated
   public static final int kPersistent = 0x01;
 
   /**
@@ -120,7 +120,7 @@ public final class NetworkTableEntry implements Publisher, Subscriber {
    * @return the flags (bitmask)
    * @deprecated Use isPersistent() or topic properties instead
    */
-  @Deprecated(since = "2022", forRemoval = true)
+  @Deprecated
   public int getFlags() {
     return NetworkTablesJNI.getEntryFlags(m_handle);
   }
@@ -941,7 +941,7 @@ public final class NetworkTableEntry implements Publisher, Subscriber {
    * @param flags the flags to set (bitmask)
    * @deprecated Use setPersistent() or topic properties instead
    */
-  @Deprecated(since = "2022", forRemoval = true)
+  @Deprecated
   public void setFlags(int flags) {
     NetworkTablesJNI.setEntryFlags(m_handle, getFlags() | flags);
   }
@@ -952,7 +952,7 @@ public final class NetworkTableEntry implements Publisher, Subscriber {
    * @param flags the flags to clear (bitmask)
    * @deprecated Use setPersistent() or topic properties instead
    */
-  @Deprecated(since = "2022", forRemoval = true)
+  @Deprecated
   public void clearFlags(int flags) {
     NetworkTablesJNI.setEntryFlags(m_handle, getFlags() & ~flags);
   }
@@ -986,7 +986,7 @@ public final class NetworkTableEntry implements Publisher, Subscriber {
    *
    * @deprecated Use unpublish() instead.
    */
-  @Deprecated(since = "2022", forRemoval = true)
+  @Deprecated
   public void delete() {
     unpublish();
   }
