@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import java.util.List;
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 class Translation2dTest {
@@ -127,8 +127,11 @@ class Translation2dTest {
     var translation4 = new Translation2d(4, Rotation2d.fromDegrees(180));
     var translation5 = new Translation2d(5, Rotation2d.fromDegrees(270));
 
-    assertEquals(origin.nearest(List.of(translation5, translation3, translation4)), translation3);
-    assertEquals(origin.nearest(List.of(translation1, translation2, translation3)), translation1);
-    assertEquals(origin.nearest(List.of(translation4, translation2, translation3)), translation2);
+    assertEquals(
+        origin.nearest(Arrays.asList(translation5, translation3, translation4)), translation3);
+    assertEquals(
+        origin.nearest(Arrays.asList(translation1, translation2, translation3)), translation1);
+    assertEquals(
+        origin.nearest(Arrays.asList(translation4, translation2, translation3)), translation2);
   }
 }

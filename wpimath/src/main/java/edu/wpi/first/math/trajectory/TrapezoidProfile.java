@@ -128,7 +128,7 @@ public class TrapezoidProfile {
    * @deprecated Pass the desired and current state into calculate instead of constructing a new
    *     TrapezoidProfile with the desired and current state
    */
-  @Deprecated(since = "2024", forRemoval = true)
+  @Deprecated
   public TrapezoidProfile(Constraints constraints, State goal, State initial) {
     m_direction = shouldFlipAcceleration(initial, goal) ? -1 : 1;
     m_constraints = constraints;
@@ -177,7 +177,7 @@ public class TrapezoidProfile {
    * @deprecated Pass the desired and current state into calculate instead of constructing a new
    *     TrapezoidProfile with the desired and current state
    */
-  @Deprecated(since = "2024", forRemoval = true)
+  @Deprecated
   public TrapezoidProfile(Constraints constraints, State goal) {
     this(constraints, goal, new State(0, 0));
   }
@@ -191,7 +191,7 @@ public class TrapezoidProfile {
    * @deprecated Pass the desired and current state into calculate instead of constructing a new
    *     TrapezoidProfile with the desired and current state
    */
-  @Deprecated(since = "2024", forRemoval = true)
+  @Deprecated
   public State calculate(double t) {
     if (m_newAPI) {
       throw new RuntimeException("Cannot use new constructor with deprecated calculate()");

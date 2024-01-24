@@ -92,7 +92,7 @@ public class Matrix<R extends Num, C extends Num> {
    * @return The number of columns, according to the internal storage.
    */
   public final int getNumCols() {
-    return this.m_storage.getNumCols();
+    return this.m_storage.numCols();
   }
 
   /**
@@ -101,7 +101,7 @@ public class Matrix<R extends Num, C extends Num> {
    * @return The number of rows, according to the internal storage.
    */
   public final int getNumRows() {
-    return this.m_storage.getNumRows();
+    return this.m_storage.numRows();
   }
 
   /**
@@ -594,7 +594,7 @@ public class Matrix<R extends Num, C extends Num> {
     SimpleMatrix temp = m_storage.copy();
 
     CholeskyDecomposition_F64<DMatrixRMaj> chol =
-        DecompositionFactory_DDRM.chol(temp.getNumRows(), lowerTriangular);
+        DecompositionFactory_DDRM.chol(temp.numRows(), lowerTriangular);
     if (!chol.decompose(temp.getMatrix())) {
       // check that the input is not all zeros -- if they are, we special case and return all
       // zeros.
@@ -604,7 +604,7 @@ public class Matrix<R extends Num, C extends Num> {
         isZeros &= Math.abs(matDatum) < 1e-6;
       }
       if (isZeros) {
-        return new Matrix<>(new SimpleMatrix(temp.getNumRows(), temp.getNumCols()));
+        return new Matrix<>(new SimpleMatrix(temp.numRows(), temp.numCols()));
       }
 
       throw new RuntimeException("Cholesky decomposition failed! Input matrix:\n" + m_storage);
@@ -655,7 +655,7 @@ public class Matrix<R extends Num, C extends Num> {
    * @return A builder to construct the matrix.
    * @deprecated Use {@link MatBuilder#fill} instead.
    */
-  @Deprecated(since = "2024", forRemoval = true)
+  @Deprecated
   @SuppressWarnings("removal")
   public static <R extends Num, C extends Num> MatBuilder<R, C> mat(Nat<R> rows, Nat<C> cols) {
     return new MatBuilder<>(Objects.requireNonNull(rows), Objects.requireNonNull(cols));

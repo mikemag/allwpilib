@@ -13,7 +13,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.constraint.EllipticalRegionConstraint;
 import edu.wpi.first.math.trajectory.constraint.MaxVelocityConstraint;
 import edu.wpi.first.math.util.Units;
-import java.util.List;
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 class EllipticalRegionConstraintTest {
@@ -31,7 +31,7 @@ class EllipticalRegionConstraintTest {
             maxVelocityConstraint);
 
     // Get trajectory
-    var trajectory = TrajectoryGeneratorTest.getTrajectory(List.of(regionConstraint));
+    var trajectory = TrajectoryGeneratorTest.getTrajectory(Arrays.asList(regionConstraint));
 
     // Iterate through trajectory and check constraints
     boolean exceededConstraintOutsideRegion = false;

@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import java.util.List;
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 class TrajectoryConcatenateTest {
@@ -18,14 +18,14 @@ class TrajectoryConcatenateTest {
     var t1 =
         TrajectoryGenerator.generateTrajectory(
             new Pose2d(),
-            List.of(),
+            Arrays.asList(),
             new Pose2d(1, 1, new Rotation2d()),
             new TrajectoryConfig(2, 2));
 
     var t2 =
         TrajectoryGenerator.generateTrajectory(
             new Pose2d(1, 1, new Rotation2d()),
-            List.of(),
+            Arrays.asList(),
             new Pose2d(2, 2, Rotation2d.fromDegrees(45)),
             new TrajectoryConfig(2, 2));
 

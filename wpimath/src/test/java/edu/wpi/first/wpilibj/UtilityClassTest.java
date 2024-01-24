@@ -42,7 +42,7 @@ public abstract class UtilityClassTest<T> {
   void constructorPrivateTest() {
     Constructor<?> constructor = m_clazz.getDeclaredConstructors()[0];
 
-    assertFalse(constructor.canAccess(null), "Constructor is not private");
+    assertFalse(constructor.isAccessible(), "Constructor is not private");
   }
 
   @Test

@@ -11,13 +11,13 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.proto.Trajectory.ProtobufTrajectory;
 import edu.wpi.first.math.trajectory.Trajectory;
-import java.util.List;
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 class TrajectoryProtoTest {
   private static final Trajectory DATA =
       new Trajectory(
-          List.of(
+          Arrays.asList(
               new Trajectory.State(
                   1.1, 2.2, 3.3, new Pose2d(new Translation2d(1.1, 2.2), new Rotation2d(2.2)), 6.6),
               new Trajectory.State(

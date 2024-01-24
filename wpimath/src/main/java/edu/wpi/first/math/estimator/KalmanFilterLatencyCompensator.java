@@ -8,6 +8,8 @@ import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.Nat;
 import edu.wpi.first.math.Num;
 import edu.wpi.first.math.numbers.N1;
+import java.util.AbstractMap;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +43,7 @@ public class KalmanFilterLatencyCompensator<S extends Num, I extends Num, O exte
       Matrix<O, N1> localY,
       double timestampSeconds) {
     m_pastObserverSnapshots.add(
-        Map.entry(timestampSeconds, new ObserverSnapshot(observer, u, localY)));
+        new SimpleEntry<>(timestampSeconds, new ObserverSnapshot(observer, u, localY)));
 
     if (m_pastObserverSnapshots.size() > kMaxPastObserverStates) {
       m_pastObserverSnapshots.remove(0);
@@ -157,7 +159,7 @@ public class KalmanFilterLatencyCompensator<S extends Num, I extends Num, O exte
 
       m_pastObserverSnapshots.set(
           i,
-          Map.entry(
+          new AbstractMap.SimpleEntry<>(
               key, new ObserverSnapshot(observer, snapshot.inputs, snapshot.localMeasurements)));
     }
   }

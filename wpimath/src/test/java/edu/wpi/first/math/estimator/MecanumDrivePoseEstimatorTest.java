@@ -18,7 +18,7 @@ import edu.wpi.first.math.kinematics.MecanumDriveWheelPositions;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
-import java.util.List;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.TreeMap;
 import java.util.function.Function;
@@ -45,7 +45,7 @@ class MecanumDrivePoseEstimatorTest {
 
     var trajectory =
         TrajectoryGenerator.generateTrajectory(
-            List.of(
+            Arrays.asList(
                 new Pose2d(0, 0, Rotation2d.fromDegrees(45)),
                 new Pose2d(3, 0, Rotation2d.fromDegrees(-90)),
                 new Pose2d(0, 0, Rotation2d.fromDegrees(135)),
@@ -91,7 +91,7 @@ class MecanumDrivePoseEstimatorTest {
 
     var trajectory =
         TrajectoryGenerator.generateTrajectory(
-            List.of(
+            Arrays.asList(
                 new Pose2d(0, 0, Rotation2d.fromDegrees(45)),
                 new Pose2d(3, 0, Rotation2d.fromDegrees(-90)),
                 new Pose2d(0, 0, Rotation2d.fromDegrees(135)),

@@ -16,6 +16,7 @@ import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.constraint.TrajectoryConstraint;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -72,7 +73,7 @@ class TrajectoryGeneratorTest {
   void testMalformedTrajectory() {
     var traj =
         TrajectoryGenerator.generateTrajectory(
-            List.of(
+            Arrays.asList(
                 new Pose2d(0, 0, Rotation2d.fromDegrees(0)),
                 new Pose2d(1, 0, Rotation2d.fromDegrees(180))),
             new TrajectoryConfig(feetToMeters(12), feetToMeters(12)));
@@ -85,7 +86,7 @@ class TrajectoryGeneratorTest {
   void testQuinticCurvatureOptimization() {
     Trajectory t =
         TrajectoryGenerator.generateTrajectory(
-            List.of(
+            Arrays.asList(
                 new Pose2d(1, 0, Rotation2d.fromDegrees(90)),
                 new Pose2d(0, 1, Rotation2d.fromDegrees(180)),
                 new Pose2d(-1, 0, Rotation2d.fromDegrees(270)),

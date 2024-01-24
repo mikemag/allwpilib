@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.spline.SplineParameterizer.MalformedSplineException;
-import java.util.List;
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 class QuinticHermiteSplineTest {
@@ -25,7 +25,7 @@ class QuinticHermiteSplineTest {
     // var start = System.nanoTime();
 
     // Generate and parameterize the spline.
-    var spline = SplineHelper.getQuinticSplinesFromWaypoints(List.of(a, b))[0];
+    var spline = SplineHelper.getQuinticSplinesFromWaypoints(Arrays.asList(a, b))[0];
     var poses = SplineParameterizer.parameterize(spline);
 
     // End the timer.

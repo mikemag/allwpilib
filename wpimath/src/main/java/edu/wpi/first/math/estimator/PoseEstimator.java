@@ -156,7 +156,7 @@ public class PoseEstimator<T extends WheelPositions<T>> {
     // Step 1: Get the pose odometry measured at the moment the vision measurement was made.
     var sample = m_poseBuffer.getSample(timestampSeconds);
 
-    if (sample.isEmpty()) {
+    if (!sample.isPresent()) {
       return;
     }
 

@@ -50,7 +50,7 @@ public class MatBuilder<R extends Num, C extends Num> {
    * @param cols The number of columns of the matrix.
    * @deprecated Use {@link MatBuilder#fill} instead.
    */
-  @Deprecated(since = "2024", forRemoval = true)
+  @Deprecated
   public MatBuilder(Nat<R> rows, Nat<C> cols) {
     this.m_rows = Objects.requireNonNull(rows);
     this.m_cols = Objects.requireNonNull(cols);

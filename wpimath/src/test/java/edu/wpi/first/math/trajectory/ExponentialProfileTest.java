@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -216,7 +217,7 @@ class ExponentialProfileTest {
   @Test
   void testHeuristic() {
     List<TestCase> testCases =
-        List.of(
+        Arrays.asList(
             new TestCase(
                 new ExponentialProfile.State(0.0, -4),
                 new ExponentialProfile.State(0.75, -4),

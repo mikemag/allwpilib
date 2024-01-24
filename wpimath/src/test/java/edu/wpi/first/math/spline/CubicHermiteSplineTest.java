@@ -14,6 +14,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.spline.SplineParameterizer.MalformedSplineException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -150,7 +151,7 @@ class CubicHermiteSplineTest {
         () ->
             run(
                 new Pose2d(10, 10, Rotation2d.fromDegrees(90)),
-                List.of(new Translation2d(10, 10.5)),
+                Arrays.asList(new Translation2d(10, 10.5)),
                 new Pose2d(10, 11, Rotation2d.fromDegrees(-90))));
   }
 }

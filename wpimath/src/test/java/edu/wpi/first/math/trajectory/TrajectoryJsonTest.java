@@ -9,14 +9,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.trajectory.constraint.DifferentialDriveKinematicsConstraint;
-import java.util.List;
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 class TrajectoryJsonTest {
   @Test
   void deserializeMatches() {
     var config =
-        List.of(new DifferentialDriveKinematicsConstraint(new DifferentialDriveKinematics(0.5), 3));
+        Arrays.asList(
+            new DifferentialDriveKinematicsConstraint(new DifferentialDriveKinematics(0.5), 3));
     var trajectory = TrajectoryGeneratorTest.getTrajectory(config);
 
     var deserialized =

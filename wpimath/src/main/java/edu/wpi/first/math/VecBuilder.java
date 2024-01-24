@@ -32,7 +32,11 @@ public final class VecBuilder {
               + data.length
               + " elements");
     }
-    return new Vector<>(new SimpleMatrix(data));
+    SimpleMatrix m = new SimpleMatrix(data.length, 1);
+    for (int i = 0; i < data.length; i++) {
+      m.set(i, 0, data[i]);
+    }
+    return new Vector<>(m);
   }
 
   /**

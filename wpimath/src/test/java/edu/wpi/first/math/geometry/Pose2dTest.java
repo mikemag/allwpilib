@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import edu.wpi.first.units.Units;
-import java.util.List;
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 class Pose2dTest {
@@ -116,9 +116,9 @@ class Pose2dTest {
     final var pose5 =
         new Pose2d(new Translation2d(5, Rotation2d.fromDegrees(270)), new Rotation2d());
 
-    assertEquals(pose3, origin.nearest(List.of(pose5, pose3, pose4)));
-    assertEquals(pose1, origin.nearest(List.of(pose1, pose2, pose3)));
-    assertEquals(pose2, origin.nearest(List.of(pose4, pose2, pose3)));
+    assertEquals(pose3, origin.nearest(Arrays.asList(pose5, pose3, pose4)));
+    assertEquals(pose1, origin.nearest(Arrays.asList(pose1, pose2, pose3)));
+    assertEquals(pose2, origin.nearest(Arrays.asList(pose4, pose2, pose3)));
 
     // Rotation component sort (when distance is the same)
     // Use the same translation because using different angles at the same distance can cause
@@ -132,16 +132,19 @@ class Pose2dTest {
     final var poseE = new Pose2d(translation, Rotation2d.fromDegrees(-180));
 
     assertEquals(
-        poseA, new Pose2d(0, 0, Rotation2d.fromDegrees(360)).nearest(List.of(poseA, poseB, poseD)));
+        poseA,
+        new Pose2d(0, 0, Rotation2d.fromDegrees(360)).nearest(Arrays.asList(poseA, poseB, poseD)));
     assertEquals(
         poseB,
-        new Pose2d(0, 0, Rotation2d.fromDegrees(-335)).nearest(List.of(poseB, poseC, poseD)));
+        new Pose2d(0, 0, Rotation2d.fromDegrees(-335)).nearest(Arrays.asList(poseB, poseC, poseD)));
     assertEquals(
         poseC,
-        new Pose2d(0, 0, Rotation2d.fromDegrees(-120)).nearest(List.of(poseB, poseC, poseD)));
+        new Pose2d(0, 0, Rotation2d.fromDegrees(-120)).nearest(Arrays.asList(poseB, poseC, poseD)));
     assertEquals(
-        poseD, new Pose2d(0, 0, Rotation2d.fromDegrees(85)).nearest(List.of(poseA, poseC, poseD)));
+        poseD,
+        new Pose2d(0, 0, Rotation2d.fromDegrees(85)).nearest(Arrays.asList(poseA, poseC, poseD)));
     assertEquals(
-        poseE, new Pose2d(0, 0, Rotation2d.fromDegrees(170)).nearest(List.of(poseA, poseD, poseE)));
+        poseE,
+        new Pose2d(0, 0, Rotation2d.fromDegrees(170)).nearest(Arrays.asList(poseA, poseD, poseE)));
   }
 }

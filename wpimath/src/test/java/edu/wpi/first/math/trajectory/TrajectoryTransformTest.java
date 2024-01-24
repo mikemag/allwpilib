@@ -10,6 +10,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +20,7 @@ class TrajectoryTransformTest {
     var config = new TrajectoryConfig(3, 3);
     var trajectory =
         TrajectoryGenerator.generateTrajectory(
-            new Pose2d(), List.of(), new Pose2d(1, 1, Rotation2d.fromDegrees(90)), config);
+            new Pose2d(), Arrays.asList(), new Pose2d(1, 1, Rotation2d.fromDegrees(90)), config);
 
     var transformedTrajectory =
         trajectory.transformBy(
@@ -38,7 +39,7 @@ class TrajectoryTransformTest {
     var trajectory =
         TrajectoryGenerator.generateTrajectory(
             new Pose2d(1, 2, Rotation2d.fromDegrees(30.0)),
-            List.of(),
+            Arrays.asList(),
             new Pose2d(5, 7, Rotation2d.fromDegrees(90)),
             config);
 
