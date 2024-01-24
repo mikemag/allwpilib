@@ -104,7 +104,7 @@ configurations {
 tasks.withType(JavaCompile).configureEach {
     options.compilerArgs = [
         '--release',
-        '11',
+        '8',
         '-encoding',
         'UTF8',
         "-Werror",
@@ -114,6 +114,10 @@ tasks.withType(JavaCompile).configureEach {
         // ignore missing serialVersionUID warnings
         "-Xlint:-serial",
     ]
+
+    javaCompiler = javaToolchains.compilerFor {
+        languageVersion = JavaLanguageVersion.of(16)
+    }
 }
 
 dependencies {
@@ -121,6 +125,10 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
     devImplementation sourceSets.main.output
+
+    annotationProcessor 'com.github.bsideup.jabel:jabel-javac-plugin:0.4.2'
+    compileOnly 'com.github.bsideup.jabel:jabel-javac-plugin:0.4.2'
+
 }
 
 task run(type: JavaExec) {
