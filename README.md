@@ -1,3 +1,9 @@
+# WPILib for FTC
+
+This is a fork of WPILib which targets Java 8 and is intended for use in FTC.
+
+See [README-FTC.md](README-FTC.md) for details.
+
 # WPILib Project
 
 [![Gradle](https://github.com/wpilibsuite/allwpilib/actions/workflows/gradle.yml/badge.svg?branch=main)](https://github.com/wpilibsuite/allwpilib/actions/workflows/gradle.yml)
