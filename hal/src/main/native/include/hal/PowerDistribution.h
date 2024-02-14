@@ -15,7 +15,6 @@
  * @{
  */
 
-// clang-format off
 /**
  * The types of power distribution devices.
  */
@@ -24,7 +23,6 @@ HAL_ENUM(HAL_PowerDistributionType) {
   HAL_PowerDistributionType_kCTRE = 1,
   HAL_PowerDistributionType_kRev = 2,
 };
-// clang-format on
 
 #define HAL_DEFAULT_POWER_DISTRIBUTION_MODULE -1
 
@@ -219,12 +217,21 @@ void HAL_SetPowerDistributionSwitchableChannel(
 HAL_Bool HAL_GetPowerDistributionSwitchableChannel(
     HAL_PowerDistributionHandle handle, int32_t* status);
 
+/**
+ * Power distribution version.
+ */
 struct HAL_PowerDistributionVersion {
+  /// Firmware major version number.
   uint32_t firmwareMajor;
+  /// Firmware minor version number.
   uint32_t firmwareMinor;
+  /// Firmware fix version number.
   uint32_t firmwareFix;
+  /// Hardware minor version number.
   uint32_t hardwareMinor;
+  /// Hardware major version number.
   uint32_t hardwareMajor;
+  /// Unique ID.
   uint32_t uniqueId;
 };
 

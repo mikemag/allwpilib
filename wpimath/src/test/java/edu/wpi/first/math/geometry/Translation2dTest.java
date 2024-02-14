@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import edu.wpi.first.math.VecBuilder;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
@@ -133,5 +134,16 @@ class Translation2dTest {
         origin.nearest(Arrays.asList(translation1, translation2, translation3)), translation1);
     assertEquals(
         origin.nearest(Arrays.asList(translation4, translation2, translation3)), translation2);
+  }
+
+  @Test
+  void testToVector() {
+    var vec = VecBuilder.fill(1.0, 2.0);
+    var translation = new Translation2d(vec);
+
+    assertEquals(vec.get(0), translation.getX());
+    assertEquals(vec.get(1), translation.getY());
+
+    assertEquals(vec, translation.toVector());
   }
 }

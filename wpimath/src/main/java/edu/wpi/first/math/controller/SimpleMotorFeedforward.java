@@ -10,8 +10,13 @@ import edu.wpi.first.math.system.plant.LinearSystemId;
 
 /** A helper class that computes feedforward outputs for a simple permanent-magnet DC motor. */
 public class SimpleMotorFeedforward {
+  /** The static gain. */
   public final double ks;
+
+  /** The velocity gain. */
   public final double kv;
+
+  /** The acceleration gain. */
   public final double ka;
 
   /**
@@ -32,7 +37,7 @@ public class SimpleMotorFeedforward {
       throw new IllegalArgumentException("kv must be a non-negative number, got " + kv + "!");
     }
     if (ka < 0.0) {
-      throw new IllegalArgumentException("ka must be a non-negative number, got " + kv + "!");
+      throw new IllegalArgumentException("ka must be a non-negative number, got " + ka + "!");
     }
   }
 

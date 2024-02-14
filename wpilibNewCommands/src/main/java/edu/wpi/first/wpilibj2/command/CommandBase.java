@@ -16,4 +16,9 @@ import edu.wpi.first.util.sendable.Sendable;
  */
 @Deprecated
 @SuppressWarnings("PMD.AbstractClassWithoutAnyMethod")
-public abstract class CommandBase extends Command {}
+public abstract class CommandBase extends Command {
+  /** Default constructor. */
+  public CommandBase() {
+    super();
+  }
+}

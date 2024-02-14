@@ -30,7 +30,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /** Provide access to the network communication data to / from the Driver Station. */
 public final class DriverStation {
-  /** Number of Joystick Ports. */
+  /** Number of Joystick ports. */
   public static final int kJoystickPorts = 6;
 
   private static class HALJoystickButtons {
@@ -49,6 +49,8 @@ public final class DriverStation {
 
   private static class HALJoystickAxesRaw {
     public int[] m_axes;
+
+    @SuppressWarnings("unused")
     public int m_count;
 
     HALJoystickAxesRaw(int count) {
@@ -70,14 +72,21 @@ public final class DriverStation {
 
   /** The robot alliance that the robot is a part of. */
   public enum Alliance {
+    /** Red alliance. */
     Red,
+    /** Blue alliance. */
     Blue
   }
 
+  /** The type of robot match that the robot is part of. */
   public enum MatchType {
+    /** None. */
     None,
+    /** Practice. */
     Practice,
+    /** Qualification. */
     Qualification,
+    /** Elimination. */
     Elimination
   }
 
@@ -1323,10 +1332,20 @@ public final class DriverStation {
     }
   }
 
+  /**
+   * Registers the given handle for DS data refresh notifications.
+   *
+   * @param handle The event handle.
+   */
   public static void provideRefreshedDataEventHandle(int handle) {
     m_refreshEvents.add(handle);
   }
 
+  /**
+   * Unregisters the given handle from DS data refresh notifications.
+   *
+   * @param handle The event handle.
+   */
   public static void removeRefreshedDataEventHandle(int handle) {
     m_refreshEvents.remove(handle);
   }
