@@ -12,7 +12,6 @@ import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.AnalogTriggerOutput.AnalogTriggerType;
-import java.lang.ref.Reference;
 
 /** Class for creating and configuring Analog Triggers. */
 public class AnalogTrigger implements Sendable, AutoCloseable {
@@ -20,8 +19,6 @@ public class AnalogTrigger implements Sendable, AutoCloseable {
   protected int m_port;
 
   private AnalogInput m_analogInput;
-
-  private DutyCycle m_dutyCycle;
 
   private boolean m_ownsAnalog;
 
@@ -62,8 +59,6 @@ public class AnalogTrigger implements Sendable, AutoCloseable {
    */
   @SuppressWarnings("this-escape")
   public AnalogTrigger(DutyCycle input) {
-    m_dutyCycle = input;
-
     m_port = AnalogJNI.initializeAnalogTriggerDutyCycle(input.m_handle);
 
     int index = getIndex();
@@ -80,7 +75,6 @@ public class AnalogTrigger implements Sendable, AutoCloseable {
     if (m_ownsAnalog && m_analogInput != null) {
       m_analogInput.close();
     }
-    Reference.reachabilityFence(m_dutyCycle);
   }
 
   /**

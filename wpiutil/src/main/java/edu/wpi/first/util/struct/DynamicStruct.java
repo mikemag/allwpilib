@@ -394,7 +394,8 @@ public final class DynamicStruct {
       throw new IllegalStateException("struct descriptor is not valid");
     }
     byte[] bytes = new byte[field.m_arraySize];
-    m_data.position(field.m_offset).get(bytes, 0, field.m_arraySize);
+    m_data.position(field.m_offset);
+    m_data.get(bytes, 0, field.m_arraySize);
     // Find last non zero character
     int stringLength = bytes.length;
     for (; stringLength > 0; stringLength--) {
@@ -469,7 +470,7 @@ public final class DynamicStruct {
     }
     ByteBuffer bb = StandardCharsets.UTF_8.encode(value);
     int len = Math.min(bb.remaining(), field.m_arraySize);
-    boolean copiedFull = len == bb.remaining();
+    final boolean copiedFull = len == bb.remaining();
     m_data.position(field.m_offset);
     bb.limit(len);
     m_data.put(bb);

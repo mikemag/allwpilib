@@ -16,7 +16,7 @@ import java.util.Arrays;
  *     controllers, use their method of following.
  */
 @SuppressWarnings("removal")
-@Deprecated(forRemoval = true, since = "2024")
+@Deprecated
 public class MotorControllerGroup implements MotorController, Sendable, AutoCloseable {
   private boolean m_isInverted;
   private final MotorController[] m_motorControllers;

@@ -8,7 +8,6 @@ import static edu.wpi.first.units.MutableMeasure.mutable;
 import static edu.wpi.first.units.Units.Second;
 import static edu.wpi.first.units.Units.Seconds;
 import static edu.wpi.first.units.Units.Volts;
-import static java.util.Map.entry;
 
 import edu.wpi.first.units.Measure;
 import edu.wpi.first.units.MutableMeasure;
@@ -19,7 +18,6 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.sysid.SysIdRoutineLog;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
-import java.util.Map;
 import java.util.function.Consumer;
 
 /**
@@ -259,11 +257,12 @@ public class SysIdRoutine extends SysIdRoutineLog {
    */
   public Command dynamic(Direction direction) {
     double outputSign = direction == Direction.kForward ? 1.0 : -1.0;
-    State state =
-        Map.ofEntries(
-                entry(Direction.kForward, State.kDynamicForward),
-                entry(Direction.kReverse, State.kDynamicReverse))
-            .get(direction);
+    State state;
+    if (direction == Direction.kForward) {
+      state = State.kDynamicForward;
+    } else {
+      state = State.kDynamicReverse;
+    }
 
     return m_mechanism
         .m_subsystem
